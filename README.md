@@ -6,6 +6,8 @@
 
 > **⚠️ IMPORTANTE**: La API oficial de Marvel no está disponible actualmente ("Page Not Found"), por lo que la aplicación utiliza **datos simulados (mock)** para demostrar todas las funcionalidades. La arquitectura está preparada para conectar con la API real cuando esté disponible.
 
+> **🏗️ ARQUITECTURA**: La aplicación ha sido completamente migrada a la **arquitectura SOLID**. La versión clásica ha sido eliminada completamente para mantener un código limpio y mantenible.
+
 ## 🌟 Características Principales
 
 ### ✨ **Funcionalidades de Usuario**

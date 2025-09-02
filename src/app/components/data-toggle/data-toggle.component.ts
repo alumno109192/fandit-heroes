@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MarvelService } from '../../services/marvel.service';
+import { MarvelService } from '../../services/marvel-solid.service';
 import { Subscription } from 'rxjs';
+import { DataMode } from '../../interfaces/data.interfaces';
 
 @Component({
   selector: 'app-data-toggle',
@@ -195,9 +196,9 @@ export class DataToggleComponent implements OnInit, OnDestroy {
   ngOnInit() {
     // Suscribirse a cambios de modo
     this.subscription.add(
-      this.marvelService.useMockData$.subscribe(useMock => {
-        this.currentMode = useMock;
-        this.currentModeText = useMock ? 'MOCK' : 'API REAL';
+      this.marvelService.useMockData$.subscribe(mode => {
+        this.currentMode = mode === DataMode.MOCK;
+        this.currentModeText = mode === DataMode.MOCK ? 'MOCK' : 'API REAL';
       })
     );
   }

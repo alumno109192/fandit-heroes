@@ -16,10 +16,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeroListComponent } from './components/hero-list/hero-list.component';
-import { HeroDetailComponent } from './components/hero-detail/hero-detail.component';
-import { SeriesSliderComponent } from './components/series-slider/series-slider.component';
-import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { ApiDebugComponent } from './components/api-debug/api-debug.component';
 import { DataToggleComponent } from './components/data-toggle/data-toggle.component';
 import { HeroListSolidComponent } from './components/hero-list-solid/hero-list-solid.component';
@@ -30,10 +26,6 @@ import { SeriesDetailSolidComponent } from './components/series-detail-solid/ser
 @NgModule({
   declarations: [
     AppComponent,
-    HeroListComponent,
-    HeroDetailComponent,
-    SeriesSliderComponent,
-    SearchBarComponent,
     ApiDebugComponent,
     DataToggleComponent,
     HeroListSolidComponent,

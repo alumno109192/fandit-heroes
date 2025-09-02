@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MarvelService } from '../../services/marvel.service';
+import { MarvelService } from '../../services/marvel-solid.service';
 import { Hero } from '../../models/hero.model';
+import { DataMode } from '../../interfaces/data.interfaces';
 
 @Component({
   selector: 'app-api-debug',
@@ -78,11 +79,11 @@ export class ApiDebugComponent implements OnInit {
     this.lastTest = 'Lista de Héroes';
     
     this.marvelService.getHeroes(5, 0).subscribe({
-      next: (heroes) => {
+      next: (heroes: Hero[]) => {
         this.processResults(heroes, 'Heroes');
         this.loading = false;
       },
-      error: (error) => {
+      error: (error: any) => {
         this.handleError(error);
         this.loading = false;
       }
@@ -94,11 +95,11 @@ export class ApiDebugComponent implements OnInit {
     this.lastTest = 'Búsqueda de "Spider"';
     
     this.marvelService.searchHeroes('Spider').subscribe({
-      next: (heroes) => {
+      next: (heroes: Hero[]) => {
         this.processResults(heroes, 'Search Results');
         this.loading = false;
       },
-      error: (error) => {
+      error: (error: any) => {
         this.handleError(error);
         this.loading = false;
       }
@@ -110,11 +111,11 @@ export class ApiDebugComponent implements OnInit {
     this.lastTest = 'Detalle de Iron Man (ID: 1009368)';
     
     this.marvelService.getHeroById(1009368).subscribe({
-      next: (hero) => {
+      next: (hero: Hero) => {
         this.processResults([hero], 'Hero Detail');
         this.loading = false;
       },
-      error: (error) => {
+      error: (error: any) => {
         this.handleError(error);
         this.loading = false;
       }
@@ -126,46 +127,11 @@ export class ApiDebugComponent implements OnInit {
     this.resultCount = data.length;
     this.firstItemName = data[0]?.name || 'N/A';
     
-    // Detectar si son datos reales o mock basándose en variedad y IDs
-    this.isRealData = this.detectRealData(data);
+    // getCurrentMode() devuelve true para MOCK, false para API
+    this.isRealData = !this.marvelService.getCurrentMode();
     
     this.rawData = JSON.stringify(data, null, 2);
     this.showRawData = true;
-  }
-
-  detectRealData(data: any[]): boolean {
-    // Los datos mock tienen IDs específicos conocidos y máximo 10 elementos
-    const mockIds = [1009368, 1009610, 1009220, 1009664, 1009351, 1009189, 1009262, 1009282, 1009718, 1009146]; 
-    // Iron Man, Spider-Man, Captain America, Thor, Hulk, Black Widow, Daredevil, Doctor Strange, Wolverine, Abomination
-    
-    if (data.length === 0) return false;
-    
-    // Si hay más de 10 elementos, definitivamente son datos reales
-    if (data.length > 10) {
-      console.log('🔍 Detectado: MÁS de 10 resultados = DATOS REALES');
-      return true;
-    }
-    
-    // Si encuentra IDs que no están en mock, son datos reales
-    const foundIds = data.map(item => item.id);
-    const hasNonMockId = foundIds.some(id => !mockIds.includes(id));
-    if (hasNonMockId) {
-      console.log('🔍 Detectado: ID no-mock encontrado = DATOS REALES', foundIds);
-      return true;
-    }
-    
-    // Si todos los IDs son de mock Y son exactamente 10 elementos o menos
-    if (data.length <= 10 && foundIds.every(id => mockIds.includes(id))) {
-      console.log('🔍 Detectado: Solo IDs mock + 10 elementos máximo = DATOS MOCK', foundIds);
-      return false;
-    }
-    
-    // Si las descripciones son muy variadas, probablemente son reales
-    const descriptions = data.map(item => item.description?.length || 0);
-    const avgLength = descriptions.reduce((a, b) => a + b, 0) / descriptions.length;
-    
-    console.log('🔍 Análisis longitud descripciones:', avgLength, avgLength > 200 ? 'REAL' : 'MOCK');
-    return avgLength > 200;
   }
 
   handleError(error: any) {
