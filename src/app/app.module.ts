@@ -22,6 +22,10 @@ import { SeriesSliderComponent } from './components/series-slider/series-slider.
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { ApiDebugComponent } from './components/api-debug/api-debug.component';
 import { DataToggleComponent } from './components/data-toggle/data-toggle.component';
+import { HeroListSolidComponent } from './components/hero-list-solid/hero-list-solid.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { HeroDetailSolidComponent } from './components/hero-detail-solid/hero-detail-solid.component';
+import { SeriesDetailSolidComponent } from './components/series-detail-solid/series-detail-solid.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +35,11 @@ import { DataToggleComponent } from './components/data-toggle/data-toggle.compon
     SeriesSliderComponent,
     SearchBarComponent,
     ApiDebugComponent,
-    DataToggleComponent
+    DataToggleComponent,
+    HeroListSolidComponent,
+    FooterComponent,
+    HeroDetailSolidComponent,
+    SeriesDetailSolidComponent
   ],
   imports: [
     BrowserModule,

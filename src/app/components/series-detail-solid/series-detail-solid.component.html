@@ -1,0 +1,88 @@
+<!-- Detalle de serie con arquitectura SOLID -->
+<div class="series-detail-container">
+  
+  <!-- Loading State -->
+  <div class="loading" *ngIf="isLoading">
+    <mat-spinner diameter="50"></mat-spinner>
+    <p>Cargando detalles de la serie...</p>
+  </div>
+
+  <!-- Error State -->
+  <div class="error-state" *ngIf="error && !isLoading">
+    <mat-icon class="error-icon">error</mat-icon>
+    <h2>{{ error }}</h2>
+    <button mat-raised-button color="primary" (click)="goBack()">
+      <mat-icon>arrow_back</mat-icon>
+      Volver a la lista
+    </button>
+  </div>
+
+  <!-- Contenido cuando serie está cargada -->
+  <div *ngIf="!isLoading && !error && serie" class="series-content">
+    <!-- Header with Back Button -->
+    <div class="series-header">
+      <button mat-icon-button (click)="goBack()" class="back-button">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <h1 class="series-title">{{ serie.title }}</h1>
+    </div>
+
+    <!-- Series Main Info -->
+    <div class="series-main-info">
+      <div class="series-image-section">
+        <img 
+          [src]="getSeriesImageUrl()" 
+          [alt]="serie.title"
+          class="series-image"
+          loading="lazy">
+      </div>      <div class="series-info-section">
+        <div class="series-description">
+          <h3>Descripción</h3>
+          <p>{{ getFormattedDescription() }}</p>
+        </div>
+        
+        <div class="series-details">
+          <h3>Detalles</h3>
+          <div class="details-grid">
+            <div class="detail-item">
+              <span class="detail-label">Años:</span>
+              <span class="detail-value">{{ getSeriesYears() }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Clasificación:</span>
+              <span class="detail-value">{{ getFormattedRating() }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Comics:</span>
+              <span class="detail-value">{{ getComicsCount() }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Related Heroes Section -->
+    <div class="related-heroes" *ngIf="relatedHeroes.length > 0">
+      <h3>Héroes Relacionados</h3>
+      <div class="heroes-grid">
+        <div 
+          class="hero-card" 
+          *ngFor="let hero of relatedHeroes" 
+          (click)="onHeroClick(hero)">
+          <img 
+            [src]="getHeroImageUrl(hero)" 
+            [alt]="hero.name"
+            class="hero-image"
+            loading="lazy">
+          <div class="hero-info">
+            <h4 class="hero-name">{{ hero.name }}</h4>
+            <p class="hero-stats">
+              {{ hero.comics.available || 0 }} comics
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>

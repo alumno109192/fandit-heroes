@@ -1,0 +1,126 @@
+<div class="hero-list-solid-container">
+  <!-- Header con información del modo actual -->
+  <div class="mode-info-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="alert" [ngClass]="isMockMode() ? 'alert-info' : 'alert-warning'">
+            <strong>Modo actual:</strong> {{ getModeInfo() }} 
+            <span class="badge ms-2" [ngClass]="isMockMode() ? 'bg-primary' : 'bg-warning'">
+              {{ getTotalHeroes() }} héroes disponibles
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sección principal de héroes -->
+  <div class="heroes-section">
+    <div class="container">
+      
+      <!-- Loading indicator -->
+      <div *ngIf="isLoading" class="loading-section text-center my-5">
+        <mat-spinner diameter="50"></mat-spinner>
+        <p class="mt-3 text-muted">Cargando héroes...</p>
+      </div>
+
+      <!-- Grid de héroes -->
+      <div *ngIf="!isLoading" class="heroes-grid">
+        <div class="row" *ngIf="getCurrentHeroes().length > 0">
+          <div 
+            class="col-lg-3 col-md-4 col-sm-6 col-12 mb-4" 
+            *ngFor="let hero of getCurrentHeroes(); trackBy: trackByHeroId"
+          >
+            <div class="hero-card" (click)="onHeroSelected(hero)">
+              <div class="hero-card-image">
+                <img 
+                  [src]="getHeroImageUrl(hero)" 
+                  [alt]="hero.name"
+                  class="img-fluid"
+                  loading="lazy"
+                  (error)="onImageError($event)"
+                >
+                <div class="hero-card-overlay">
+                  <div class="hero-card-actions">
+                    <button 
+                      class="btn btn-primary btn-sm"
+                      [attr.aria-label]="'Ver detalles de ' + hero.name"
+                    >
+                      Ver Detalles
+                    </button>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="hero-card-content">
+                <h5 class="hero-card-title">{{ hero.name }}</h5>
+                <p class="hero-card-description">
+                  {{ truncateDescription(hero.description) }}
+                </p>
+                
+                <div class="hero-card-stats">
+                  <small class="text-muted">
+                    <i class="material-icons me-1">book</i>
+                    {{ hero.comics.available | number }} Comics
+                  </small>
+                  <small class="text-muted ms-3">
+                    <i class="material-icons me-1">movie</i>
+                    {{ hero.series.available | number }} Series
+                  </small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Estado vacío -->
+        <div *ngIf="getCurrentHeroes().length === 0" class="empty-state text-center my-5">
+          <div class="empty-state-icon">
+            <i class="material-icons" style="font-size: 64px; color: #ccc;">search_off</i>
+          </div>
+          <h4 class="empty-state-title">No se encontraron héroes</h4>
+          <p class="empty-state-description text-muted">
+            {{ isSearching ? 'Intenta con otros términos de búsqueda' : 'No hay héroes disponibles en este momento' }}
+          </p>
+          <button 
+            *ngIf="isSearching" 
+            class="btn btn-outline-primary"
+            (click)="clearSearchResults()"
+          >
+            Limpiar búsqueda
+          </button>
+        </div>
+      </div>
+
+      <!-- Sección de estadísticas -->
+      <div *ngIf="!isLoading && getCurrentHeroes().length > 0" class="stats-section mt-4">
+        <div class="card">
+          <div class="card-body">
+            <div class="row text-center">
+              <div class="col-md-4">
+                <div class="stat-item">
+                  <h3 class="stat-number text-primary">{{ getTotalHeroes() }}</h3>
+                  <p class="stat-label text-muted">Héroes {{ isSearching ? 'encontrados' : 'disponibles' }}</p>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="stat-item">
+                  <h3 class="stat-number text-success">{{ currentMode }}</h3>
+                  <p class="stat-label text-muted">Modo actual</p>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="stat-item">
+                  <h3 class="stat-number text-info">{{ isSearching ? 'SÍ' : 'NO' }}</h3>
+                  <p class="stat-label text-muted">Búsqueda activa</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

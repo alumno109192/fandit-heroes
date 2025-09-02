@@ -1,6 +1,23 @@
-<router-outlet></router-outlet>
+<div class="app-container">
+  <!-- Header principal -->
+  <mat-toolbar color="primary" class="main-toolbar">
+    <div class="toolbar-content">
+      <div class="logo-section">
+        <mat-icon>movie</mat-icon>
+        <span class="app-title">FANDIT HÉROES</span>
+      </div>
+      
+      <div class="actions-section">
+        <app-data-toggle></app-data-toggle>
+      </div>
+    </div>
+  </mat-toolbar>
 
+  <!-- Main content -->
+  <main class="main-content">
+    <router-outlet></router-outlet>
+  </main>
 
-
-
-<router-outlet></router-outlet>
+  <!-- Footer -->
+  <app-footer></app-footer>
+</div>

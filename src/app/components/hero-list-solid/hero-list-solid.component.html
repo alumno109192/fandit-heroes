@@ -1,0 +1,66 @@
+<div class="hero-list-container">
+  <!-- Loading Section -->
+  <div class="loading" *ngIf="isLoading">
+    <mat-spinner diameter="40"></mat-spinner>
+    <p>Cargando héroes...</p>
+  </div>
+
+  <!-- Contenido cuando NO está cargando -->
+  <div *ngIf="!isLoading">
+    <!-- Serie de series horizontal -->
+    <section class="heroes-series" *ngIf="getFirstSeries(6).length > 0">
+      <h2 class="section-title">Series Destacadas</h2>
+      <div class="heroes-slider">
+        <div class="hero-slide" *ngFor="let serie of getFirstSeries(6)" (click)="onSeriesSelected(serie)">
+          <div class="hero-slide-image">
+            <img 
+              [src]="getSeriesImageUrl(serie)" 
+              [alt]="serie.title"
+              loading="lazy">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Barra de búsqueda -->
+    <div class="search-section">
+      <mat-form-field appearance="outline" class="search-field">
+        <mat-label>Buscar héroes...</mat-label>
+        <input matInput 
+               [(ngModel)]="searchTerm" 
+               (input)="onSearchChange()"
+               placeholder="Escribe el nombre del héroe">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </div>
+
+    <!-- Grid principal de héroes -->
+    <section class="heroes-main" *ngIf="getFilteredHeroes().length > 0">
+      <div class="heroes-grid">
+        <div class="hero-card" *ngFor="let hero of getFilteredHeroes()" (click)="onHeroSelected(hero)">
+          <div class="hero-image-container">
+            <img 
+              class="hero-image"
+              [src]="getHeroImageUrl(hero)" 
+              [alt]="hero.name"
+              loading="lazy">
+          </div>
+          <div class="hero-info">
+            <h3 class="hero-name">{{ hero.name }}</h3>
+            <div class="hero-stats">
+              <span class="stat">{{ hero.comics.available || 0 }} comics</span>
+              <span class="stat">{{ hero.series.available || 0 }} series</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- No Results -->
+    <div class="no-results" *ngIf="getFilteredHeroes().length === 0">
+      <mat-icon>search_off</mat-icon>
+      <h3>No se encontraron héroes</h3>
+      <p>{{ searchTerm ? 'Intenta con otro término de búsqueda' : 'No hay héroes disponibles en este momento' }}</p>
+    </div>
+  </div>
+</div>

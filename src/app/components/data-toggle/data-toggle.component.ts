@@ -5,153 +5,83 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-data-toggle',
   template: `
-    <div class="data-toggle-container">
-      <div class="toggle-card">
-        <div class="toggle-header">
-          <h4>🔄 Modo de Datos</h4>
-          <div class="current-mode" [class.mock-mode]="currentMode" [class.api-mode]="!currentMode">
-            {{currentModeText}}
-          </div>
-        </div>
-        
-        <div class="toggle-content">
-          <div class="mode-info">
-            <div class="mode-option" [class.active]="!currentMode">
-              <div class="mode-icon">🌐</div>
-              <div class="mode-details">
-                <strong>API Real Marvel</strong>
-                <small>1500+ personajes, búsqueda completa</small>
-              </div>
-            </div>
-            
-            <div class="toggle-switch">
-              <label class="switch">
-                <input 
-                  type="checkbox" 
-                  [checked]="currentMode" 
-                  (change)="onToggleChange($event)">
-                <span class="slider round"></span>
-              </label>
-            </div>
-            
-            <div class="mode-option" [class.active]="currentMode">
-              <div class="mode-icon">📦</div>
-              <div class="mode-details">
-                <strong>Datos Mock</strong>
-                <small>10 personajes fijos, offline</small>
-              </div>
-            </div>
-          </div>
-          
-          <div class="toggle-actions">
-            <button 
-              class="btn-toggle" 
-              [class.btn-api]="currentMode" 
-              [class.btn-mock]="!currentMode"
-              (click)="quickToggle()">
-              {{currentMode ? '🌐 Cambiar a API Real' : '📦 Cambiar a Mock'}}
-            </button>
-          </div>
-          
-          <div class="mode-description">
-            <p *ngIf="!currentMode">
-              <strong>🌐 Modo API Real:</strong> Conectado a developer.marvel.com. 
-              Datos actualizados, búsqueda completa, requiere internet.
-            </p>
-            <p *ngIf="currentMode">
-              <strong>📦 Modo Mock:</strong> Datos locales predefinidos. 
-              Funciona offline, 10 personajes Marvel disponibles.
-            </p>
-          </div>
-        </div>
+    <div class="data-toggle-toolbar">
+      <div class="toggle-info">
+        <span class="mode-label">Datos:</span>
+        <span class="mode-badge" [class.mock-mode]="currentMode" [class.api-mode]="!currentMode">
+          {{currentModeText}}
+        </span>
+      </div>
+      
+      <div class="toggle-switch">
+        <label class="switch">
+          <input 
+            type="checkbox" 
+            [checked]="currentMode" 
+            (change)="onToggleChange($event)"
+            [title]="currentMode ? 'Cambiar a API Real' : 'Cambiar a Mock'">
+          <span class="slider round"></span>
+        </label>
       </div>
     </div>
   `,
   styles: [`
-    .data-toggle-container {
-      margin: 20px;
-      max-width: 600px;
-    }
-
-    .toggle-card {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      border-radius: 15px;
-      padding: 20px;
-      color: white;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    }
-
-    .toggle-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-
-    .toggle-header h4 {
-      margin: 0;
-      font-size: 1.2rem;
-    }
-
-    .current-mode {
-      padding: 5px 15px;
-      border-radius: 20px;
-      font-weight: bold;
-      font-size: 0.9rem;
-    }
-
-    .current-mode.api-mode {
-      background: rgba(76, 175, 80, 0.8);
-    }
-
-    .current-mode.mock-mode {
-      background: rgba(255, 152, 0, 0.8);
-    }
-
-    .mode-info {
+    .data-toggle-toolbar {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      margin-bottom: 20px;
-    }
-
-    .mode-option {
-      display: flex;
-      align-items: center;
-      padding: 10px;
-      border-radius: 10px;
+      gap: 12px;
+      padding: 4px 8px;
+      border-radius: 6px;
       background: rgba(255, 255, 255, 0.1);
-      flex: 1;
-      opacity: 0.7;
+      transition: background-color 0.3s ease;
+    }
+
+    .data-toggle-toolbar:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .toggle-info {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+    }
+
+    .mode-label {
+      color: rgba(255, 255, 255, 0.8);
+      font-weight: 500;
+    }
+
+    .mode-badge {
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
       transition: all 0.3s ease;
     }
 
-    .mode-option.active {
-      opacity: 1;
-      background: rgba(255, 255, 255, 0.2);
-      transform: scale(1.05);
+    .mode-badge.api-mode {
+      background: #4CAF50;
+      color: white;
     }
 
-    .mode-icon {
-      font-size: 2rem;
-      margin-right: 10px;
-    }
-
-    .mode-details small {
-      display: block;
-      opacity: 0.8;
-      font-size: 0.8rem;
+    .mode-badge.mock-mode {
+      background: #FF9800;
+      color: white;
     }
 
     .toggle-switch {
-      margin: 0 20px;
+      display: flex;
+      align-items: center;
     }
 
     .switch {
       position: relative;
       display: inline-block;
-      width: 60px;
-      height: 34px;
+      width: 40px;
+      height: 20px;
     }
 
     .switch input {
@@ -168,20 +98,22 @@ import { Subscription } from 'rxjs';
       right: 0;
       bottom: 0;
       background-color: #4CAF50;
-      transition: .4s;
-      border-radius: 34px;
+      transition: .3s;
+      border-radius: 20px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     }
 
     .slider:before {
       position: absolute;
       content: "";
-      height: 26px;
-      width: 26px;
-      left: 4px;
-      bottom: 4px;
+      height: 16px;
+      width: 16px;
+      left: 2px;
+      bottom: 2px;
       background-color: white;
-      transition: .4s;
+      transition: .3s;
       border-radius: 50%;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
     }
 
     input:checked + .slider {
@@ -189,67 +121,66 @@ import { Subscription } from 'rxjs';
     }
 
     input:checked + .slider:before {
-      transform: translateX(26px);
+      transform: translateX(20px);
     }
 
-    .toggle-actions {
-      text-align: center;
-      margin-bottom: 15px;
+    .slider:hover {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     }
 
-    .btn-toggle {
-      padding: 10px 20px;
-      border: none;
-      border-radius: 25px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      color: white;
-    }
-
-    .btn-api {
-      background: #4CAF50;
-    }
-
-    .btn-api:hover {
-      background: #45a049;
-      transform: translateY(-2px);
-    }
-
-    .btn-mock {
-      background: #FF9800;
-    }
-
-    .btn-mock:hover {
-      background: #f57c00;
-      transform: translateY(-2px);
-    }
-
-    .mode-description {
-      background: rgba(255, 255, 255, 0.1);
-      padding: 15px;
-      border-radius: 10px;
-      font-size: 0.9rem;
-    }
-
-    .mode-description p {
-      margin: 0;
-      line-height: 1.4;
-    }
-
+    /* Responsive */
     @media (max-width: 768px) {
-      .mode-info {
-        flex-direction: column;
-        gap: 15px;
+      .data-toggle-toolbar {
+        gap: 8px;
+        padding: 2px 6px;
       }
 
-      .toggle-switch {
-        margin: 0;
+      .toggle-info {
+        gap: 4px;
+        font-size: 0.8rem;
       }
 
-      .mode-option {
-        justify-content: center;
-        text-align: center;
+      .mode-label {
+        display: none; /* Ocultar en móvil para ahorrar espacio */
+      }
+
+      .mode-badge {
+        font-size: 0.7rem;
+        padding: 1px 6px;
+      }
+
+      .switch {
+        width: 36px;
+        height: 18px;
+      }
+
+      .slider:before {
+        height: 14px;
+        width: 14px;
+      }
+
+      input:checked + .slider:before {
+        transform: translateX(18px);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .data-toggle-toolbar {
+        gap: 6px;
+      }
+
+      .switch {
+        width: 32px;
+        height: 16px;
+      }
+
+      .slider:before {
+        height: 12px;
+        width: 12px;
+      }
+
+      input:checked + .slider:before {
+        transform: translateX(16px);
       }
     }
   `]
@@ -282,9 +213,5 @@ export class DataToggleComponent implements OnInit, OnDestroy {
     // Notificar el cambio
     const mode = useMock ? 'Mock (Offline)' : 'API Real (Online)';
     console.log(`🔄 Cambiado a modo: ${mode}`);
-  }
-
-  quickToggle() {
-    this.marvelService.toggleDataSource();
   }
 }

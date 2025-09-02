@@ -1,0 +1,69 @@
+<!-- Footer de la aplicación FANDIT HÉROES -->
+<footer class="app-footer">
+  <div class="footer-container">
+    
+    <!-- Información principal -->
+    <div class="footer-main">
+      <div class="footer-brand">
+        <h3>{{ appName }}</h3>
+        <p>Tu plataforma favorita para explorar el universo Marvel</p>
+      </div>
+      
+      <div class="footer-info">
+        <div class="footer-section">
+          <h4>Enlaces</h4>
+          <ul>
+            <li><a (click)="onLegalClick('about')" href="#">Acerca de</a></li>
+            <li><a (click)="onLegalClick('contact')" href="#">Contacto</a></li>
+            <li><a (click)="onLegalClick('help')" href="#">Ayuda</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-section">
+          <h4>Legal</h4>
+          <ul>
+            <li><a (click)="onLegalClick('privacy')" href="#">Privacidad</a></li>
+            <li><a (click)="onLegalClick('terms')" href="#">Términos</a></li>
+            <li><a (click)="onLegalClick('cookies')" href="#">Cookies</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-section">
+          <h4>Síguenos</h4>
+          <div class="social-links">
+            <button 
+              mat-icon-button 
+              (click)="onSocialClick('twitter')"
+              aria-label="Twitter">
+              <mat-icon>alternate_email</mat-icon>
+            </button>
+            <button 
+              mat-icon-button 
+              (click)="onSocialClick('facebook')"
+              aria-label="Facebook">
+              <mat-icon>facebook</mat-icon>
+            </button>
+            <button 
+              mat-icon-button 
+              (click)="onSocialClick('instagram')"
+              aria-label="Instagram">
+              <mat-icon>camera_alt</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Copyright -->
+    <div class="footer-bottom">
+      <div class="copyright">
+        <p>&copy; {{ currentYear }} {{ appName }} v{{ version }}. Todos los derechos reservados.</p>
+        <p class="disclaimer">
+          Los datos de Marvel son propiedad de Marvel Entertainment, LLC. 
+          Esta aplicación es solo para fines educativos.
+        </p>
+      </div>
+    </div>
+    
+  </div>
+</footer>

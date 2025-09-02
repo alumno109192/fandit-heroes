@@ -1,0 +1,80 @@
+<!-- Detalle de héroe con arquitectura SOLID -->
+<div class="hero-detail-container">
+  
+  <!-- Loading State -->
+  <div class="loading" *ngIf="isLoading">
+    <mat-spinner diameter="50"></mat-spinner>
+    <p>Cargando detalles del héroe...</p>
+  </div>
+
+  <!-- Error State -->
+  <div class="error-state" *ngIf="error && !isLoading">
+    <mat-icon class="error-icon">error</mat-icon>
+    <h2>{{ error }}</h2>
+    <button mat-raised-button color="primary" (click)="goBack()">
+      <mat-icon>arrow_back</mat-icon>
+      Volver a la lista
+    </button>
+  </div>
+
+  <!-- Contenido cuando hero está cargado -->
+  <div *ngIf="!isLoading && !error && hero" class="hero-content">
+    <!-- Header with Back Button -->
+    <div class="hero-header">
+      <button mat-icon-button (click)="goBack()" class="back-button">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <h1 class="hero-title">{{ hero.name }}</h1>
+    </div>
+
+    <!-- Hero Main Info -->
+    <div class="hero-main-info">
+      <div class="hero-image-section">
+        <img 
+          [src]="getHeroImageUrl()" 
+          [alt]="hero.name"
+          class="hero-image"
+          loading="lazy">
+      </div>      <div class="hero-info-section">
+        <div class="hero-description">
+          <h3>Descripción</h3>
+          <p>{{ getFormattedDescription() }}</p>
+        </div>
+        
+        <div class="hero-stats">
+          <h3>Estadísticas</h3>
+          <div class="stats-grid">
+            <div class="stat-item" *ngFor="let stat of getHeroStats()">
+              <span class="stat-value">{{ stat.value }}</span>
+              <span class="stat-label">{{ stat.label }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Related Series Section -->
+    <div class="related-series" *ngIf="relatedSeries.length > 0">
+      <h3>Series Relacionadas</h3>
+      <div class="series-grid">
+        <div 
+          class="series-card" 
+          *ngFor="let serie of relatedSeries" 
+          (click)="onSeriesClick(serie)">
+          <img 
+            [src]="getSeriesImageUrl(serie)" 
+            [alt]="serie.title"
+            class="series-image"
+            loading="lazy">
+          <div class="series-info">
+            <h4 class="series-title">{{ serie.title }}</h4>
+            <p class="series-year" *ngIf="serie.startYear">
+              {{ serie.startYear }}{{ serie.endYear ? ' - ' + serie.endYear : '' }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>

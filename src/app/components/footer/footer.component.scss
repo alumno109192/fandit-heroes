@@ -1,0 +1,185 @@
+/* Estilos para el footer de FANDIT HÉROES */
+.app-footer {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  color: #ffffff;
+  margin-top: auto;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* === CONTENIDO PRINCIPAL === */
+.footer-main {
+  padding: 40px 0 30px;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 40px;
+  border-bottom: 1px solid #444;
+}
+
+.footer-brand {
+  h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #3f51b5;
+    margin-bottom: 10px;
+    background: linear-gradient(45deg, #3f51b5, #2196f3);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  p {
+    color: #cccccc;
+    line-height: 1.5;
+    font-size: 0.95rem;
+  }
+}
+
+.footer-info {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.footer-section {
+  h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #ffffff;
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    
+    li {
+      margin-bottom: 8px;
+      
+      a {
+        color: #cccccc;
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: color 0.3s ease;
+        cursor: pointer;
+        
+        &:hover {
+          color: #3f51b5;
+        }
+      }
+    }
+  }
+}
+
+.social-links {
+  display: flex;
+  gap: 8px;
+  
+  button {
+    color: #cccccc;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      color: #3f51b5;
+      background-color: rgba(63, 81, 181, 0.1);
+    }
+    
+    mat-icon {
+      font-size: 1.2rem;
+    }
+  }
+}
+
+/* === PIE DE COPYRIGHT === */
+.footer-bottom {
+  padding: 20px 0;
+  text-align: center;
+}
+
+.copyright {
+  p {
+    margin: 5px 0;
+    color: #aaaaaa;
+    font-size: 0.85rem;
+    
+    &.disclaimer {
+      font-size: 0.8rem;
+      color: #888888;
+      font-style: italic;
+    }
+  }
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .footer-main {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding: 30px 0 20px;
+  }
+  
+  .footer-info {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+  
+  .footer-brand {
+    text-align: center;
+    
+    h3 {
+      font-size: 1.3rem;
+    }
+  }
+  
+  .footer-section {
+    text-align: center;
+  }
+  
+  .social-links {
+    justify-content: center;
+  }
+  
+  .footer-bottom {
+    padding: 15px 0;
+  }
+  
+  .copyright p {
+    font-size: 0.8rem;
+    
+    &.disclaimer {
+      font-size: 0.75rem;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-container {
+    padding: 0 16px;
+  }
+  
+  .footer-main {
+    padding: 25px 0 15px;
+  }
+  
+  .footer-brand h3 {
+    font-size: 1.2rem;
+  }
+  
+  .footer-section h4 {
+    font-size: 1rem;
+  }
+  
+  .copyright p {
+    font-size: 0.75rem;
+    
+    &.disclaimer {
+      font-size: 0.7rem;
+    }
+  }
+}
