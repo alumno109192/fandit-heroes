@@ -13,8 +13,8 @@ export class MarvelService {
   private baseUrl = 'https://gateway.marvel.com/v1/public';
   private searchSubject = new BehaviorSubject<string>('');
   
-  // Toggle para modo de datos
-  private useMockData = new BehaviorSubject<boolean>(false); // Por defecto API real
+  // Toggle para modo de datos - Por defecto Mock debido a indisponibilidad de API
+  private useMockData = new BehaviorSubject<boolean>(true); // Por defecto MOCK (API indisponible)
   public useMockData$ = this.useMockData.asObservable();
 
   // Datos mock como fallback
