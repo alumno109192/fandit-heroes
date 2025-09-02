@@ -9,12 +9,6 @@ import { DataMode, ImageSize } from '../../interfaces/data.interfaces';
 import { LogUtils } from '../../utils/common.utils';
 import { UI_CONSTANTS } from '../../constants/app.constants';
 
-/**
- * Componente refactorizado siguiendo principios SOLID
- * - SRP: Se enfoca únicamente en la presentación de la lista de héroes
- * - DIP: Depende de abstracciones (servicios) no de implementaciones
- * - Clean Code: Métodos pequeños y con nombres descriptivos
- */
 @Component({
   selector: 'app-hero-list-solid',
   templateUrl: './hero-list-solid.component.html',
@@ -22,16 +16,14 @@ import { UI_CONSTANTS } from '../../constants/app.constants';
 })
 export class HeroListSolidComponent implements OnInit, OnDestroy {
   
-  // === PROPIEDADES PÚBLICAS ===
   heroes: Hero[] = [];
   series: Serie[] = [];
   searchResults: Hero[] = [];
-  isLoading = true; // Cambiar a true inicialmente
+  isLoading = true;
   isSearching = false;
   currentMode: DataMode = DataMode.MOCK;
   searchTerm = '';
   
-  // === PROPIEDADES PRIVADAS ===
   private subscriptions = new Subscription();
   private readonly defaultLimit = UI_CONSTANTS.PAGINATION.DEFAULT_PAGE_SIZE;
 

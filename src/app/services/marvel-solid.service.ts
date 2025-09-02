@@ -10,24 +10,12 @@ import { IHeroDataSource, DataMode, ImageSize } from '../interfaces/data.interfa
 import { LogUtils, ValidationUtils } from '../utils/common.utils';
 import { UI_CONSTANTS } from '../constants/app.constants';
 
-/**
- * MarvelService refactorizado siguiendo principios SOLID
- * 
- * SRP: Se enfoca únicamente en coordinar servicios y proveer una API unificada
- * OCP: Extensible a través de nuevos data sources sin modificar código existente
- * LSP: Los data sources son intercambiables
- * ISP: Usa interfaces específicas para cada responsabilidad
- * DIP: Depende de abstracciones, no de implementaciones concretas
- */
 @Injectable({
   providedIn: 'root'
 })
 export class MarvelService {
   
-  // Subject para búsquedas reactivas
   private readonly searchSubject = new BehaviorSubject<string>('');
-  
-  // Data source actual
   private currentDataSource: IHeroDataSource;
 
   constructor(
