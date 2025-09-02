@@ -84,7 +84,7 @@ export class MarvelService {
       name: 'Black Widow',
       description: 'Despite super spy Natasha Romanoff\'s checkered past, she\'s become one of S.H.I.E.L.D.\'s most deadly assassins and a frequent member of the Avengers.',
       thumbnail: {
-        path: 'http://i.annihil.us/u/prod/marvel/i/mg/f/30/50fecad1f395d',
+        path: 'https://m.media-amazon.com/images/I/81Jgy1tfvcL._UF894,1000_QL80_',
         extension: 'jpg'
       },
       comics: { available: 1072, items: [] },
