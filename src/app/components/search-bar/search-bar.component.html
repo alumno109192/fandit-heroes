@@ -1,0 +1,39 @@
+<div class="search-container">
+  <mat-form-field class="search-field" appearance="outline">
+    <mat-label>Buscar héroes</mat-label>
+    <input
+      type="text"
+      placeholder="Escribe el nombre de un héroe..."
+      matInput
+      [formControl]="searchControl"
+      [matAutocomplete]="auto">
+    <mat-icon matSuffix>search</mat-icon>
+    <button 
+      *ngIf="searchControl.value" 
+      matSuffix 
+      mat-icon-button 
+      aria-label="Clear" 
+      (click)="clearSearch()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+
+  <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+    <mat-option *ngIf="isLoading" class="loading-option">
+      <mat-spinner diameter="20"></mat-spinner>
+      Buscando...
+    </mat-option>
+    <mat-option 
+      *ngFor="let hero of filteredHeroes | async" 
+      [value]="hero"
+      (onSelectionChange)="onHeroSelected(hero)">
+      <div class="hero-option">
+        <img 
+          [src]="hero.thumbnail.path + '/standard_small.' + hero.thumbnail.extension" 
+          [alt]="hero.name"
+          class="hero-avatar">
+        <span class="hero-name">{{ hero.name }}</span>
+      </div>
+    </mat-option>
+  </mat-autocomplete>
+</div>

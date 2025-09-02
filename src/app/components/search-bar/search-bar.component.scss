@@ -1,0 +1,41 @@
+.search-container {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.search-field {
+  width: 100%;
+}
+
+.hero-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+}
+
+.hero-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.hero-name {
+  font-weight: 500;
+}
+
+.loading-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: center;
+  padding: 16px;
+}
+
+@media (max-width: 768px) {
+  .search-container {
+    padding: 0 16px;
+  }
+}
