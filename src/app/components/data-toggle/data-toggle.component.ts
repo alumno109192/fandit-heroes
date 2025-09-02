@@ -38,7 +38,7 @@ import { Subscription } from 'rxjs';
               <div class="mode-icon">📦</div>
               <div class="mode-details">
                 <strong>Datos Mock</strong>
-                <small>3 personajes fijos, offline</small>
+                <small>10 personajes fijos, offline</small>
               </div>
             </div>
           </div>
@@ -60,7 +60,7 @@ import { Subscription } from 'rxjs';
             </p>
             <p *ngIf="currentMode">
               <strong>📦 Modo Mock:</strong> Datos locales predefinidos. 
-              Funciona offline, solo 3 personajes disponibles.
+              Funciona offline, 10 personajes Marvel disponibles.
             </p>
           </div>
         </div>

@@ -134,14 +134,15 @@ export class ApiDebugComponent implements OnInit {
   }
 
   detectRealData(data: any[]): boolean {
-    // Los datos mock tienen IDs específicos conocidos y solo 3 elementos
-    const mockIds = [1009368, 1009610, 1009220]; // Iron Man, Spider-Man, Captain America
+    // Los datos mock tienen IDs específicos conocidos y máximo 10 elementos
+    const mockIds = [1009368, 1009610, 1009220, 1009664, 1009351, 1009189, 1009262, 1009282, 1009718, 1009146]; 
+    // Iron Man, Spider-Man, Captain America, Thor, Hulk, Black Widow, Daredevil, Doctor Strange, Wolverine, Abomination
     
     if (data.length === 0) return false;
     
-    // Si hay más de 3 elementos, definitivamente son datos reales
-    if (data.length > 3) {
-      console.log('🔍 Detectado: MÁS de 3 resultados = DATOS REALES');
+    // Si hay más de 10 elementos, definitivamente son datos reales
+    if (data.length > 10) {
+      console.log('🔍 Detectado: MÁS de 10 resultados = DATOS REALES');
       return true;
     }
     
@@ -153,9 +154,9 @@ export class ApiDebugComponent implements OnInit {
       return true;
     }
     
-    // Si todos los IDs son de mock Y son exactamente 3 elementos
-    if (data.length <= 3 && foundIds.every(id => mockIds.includes(id))) {
-      console.log('🔍 Detectado: Solo IDs mock + 3 elementos máximo = DATOS MOCK', foundIds);
+    // Si todos los IDs son de mock Y son exactamente 10 elementos o menos
+    if (data.length <= 10 && foundIds.every(id => mockIds.includes(id))) {
+      console.log('🔍 Detectado: Solo IDs mock + 10 elementos máximo = DATOS MOCK', foundIds);
       return false;
     }
     
